@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Basketball News Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-basketball-ball"></i>
+                <h1>NBA News Hub</h1>
+            </div>
+            <div class="nav-actions">
+                <button id="refreshBtn" class="btn-primary">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh News
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main">
+        <div class="container">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="status-info">
+                    <span id="newsCount">Loading...</span>
+                    <span id="lastUpdate">Last updated: Never</span>
+                </div>
+                <div class="loading-indicator" id="loadingIndicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Loading...
+                </div>
+            </div>
+
+            <!-- 比分和赛程区域 -->
+            <div class="scores-schedule-section">
+                <div class="section-tabs">
+                    <button class="tab-btn active" data-tab="scores">
+                        <i class="fas fa-trophy"></i>
+                        Recent Scores
+                    </button>
+                    <button class="tab-btn" data-tab="schedule">
+                        <i class="fas fa-calendar-alt"></i>
+                        Upcoming Games
+                    </button>
+                </div>
+                
+                <div class="tab-content active" id="scores-content">
+                    <div class="scores-grid" id="scoresGrid">
+                        <!-- 比分卡片将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="schedule-content">
+                    <div class="schedule-grid" id="scheduleGrid">
+                        <!-- 赛程卡片将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新闻网格 -->
+            <div class="news-grid" id="newsGrid">
+                <!-- 新闻卡片将通过JavaScript动态生成 -->
+            </div>
+
+            <!-- 空状态 -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-newspaper"></i>
+                <h3>No News Available</h3>
+                <p>Unable to load NBA news at the moment. Please try refreshing.</p>
+                <button class="btn-primary" onclick="loadNews()">
+                    <i class="fas fa-sync-alt"></i>
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 NBA News Hub. All rights reserved.</p>
+            <p>Latest basketball news from official sources</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
