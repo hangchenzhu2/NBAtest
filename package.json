@@ -15,8 +15,7 @@
     "cors": "^2.8.5",
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
-    "node-cron": "^3.0.3",
-    "puppeteer": "^21.0.0"
+    "node-cron": "^3.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
