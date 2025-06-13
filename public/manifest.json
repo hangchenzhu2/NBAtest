@@ -1,0 +1,20 @@
+{
+  "name": "NBA Basketball News Hub",
+  "short_name": "NBA News Hub",
+  "description": "Latest NBA basketball news from ESPN NBA and NBA Official sources",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1d428a",
+  "theme_color": "#1d428a",
+  "orientation": "portrait-primary",
+  "categories": ["sports", "news"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+} 

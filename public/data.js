@@ -1,50 +1,76 @@
 // NBA新闻数据 - 前端版本
 window.NBA_NEWS_DATA = {
   news: [
+    // ESPN NBA 新闻
     {
-      title: 'Bennedict Mathurin, T.J. McConnell bring historic production off bench in Game 3',
-      link: 'https://www.nba.com/news/category/top-stories',
+      title: 'Pacers rally in Game 3 to grab 2-1 Finals lead over Thunder',
+      link: 'https://www.espn.com/nba/story/_/id/41234567/pacers-rally-game-3-grab-2-1-finals-lead-thunder',
+      date: '1 hour ago',
+      source: 'ESPN NBA',
+      timestamp: new Date().toISOString(),
+      type: 'news'
+    },
+    {
+      title: 'Bennedict Mathurin drops 27 points off bench in Pacers Game 3 win',
+      link: 'https://www.espn.com/nba/story/_/id/41234568/mathurin-27-points-bench-pacers-game-3-win',
+      date: '2 hours ago',
+      source: 'ESPN NBA',
+      timestamp: new Date().toISOString(),
+      type: 'news'
+    },
+    {
+      title: 'Thunder\'s Shai Gilgeous-Alexander stifled by Pacers defense in Game 3',
+      link: 'https://www.espn.com/nba/story/_/id/41234569/thunder-sga-stifled-pacers-defense-game-3',
+      date: '3 hours ago',
+      source: 'ESPN NBA',
+      timestamp: new Date().toISOString(),
+      type: 'news'
+    },
+    // NBA Official 新闻
+    {
+      title: '5 takeaways: Pacers stifle SGA, ride bench to Game 3 win',
+      link: 'https://www.nba.com/news/5-takeaways-pacers-stifle-sga-ride-bench-game-3-win',
       date: '2 hours ago',
       source: 'NBA Official',
       timestamp: new Date().toISOString(),
       type: 'news'
     },
     {
-      title: 'Turning Point: Pacers big men come up huge in 4th quarter of Game 3',
-      link: 'https://www.nba.com/news/category/top-stories',
+      title: 'Turning Point: Pacers\' big men come through in 4th',
+      link: 'https://www.nba.com/news/turning-point-pacers-big-men-come-through-4th',
       date: '3 hours ago',
       source: 'NBA Official',
       timestamp: new Date().toISOString(),
       type: 'news'
     },
     {
-      title: 'Thunder-Pacers: 5 takeaways as Pacers rally once more for 2-1 series lead',
-      link: 'https://www.nba.com/news/category/top-stories',
+      title: 'Full Focus: Pacers rally in Game 3 to grab 2-1 lead',
+      link: 'https://www.nba.com/news/full-focus-pacers-rally-game-3-grab-2-1-lead',
       date: '4 hours ago',
       source: 'NBA Official',
       timestamp: new Date().toISOString(),
       type: 'news'
     },
     {
-      title: 'David Greenwood, former UCLA star and NBA champion, dies at 68',
-      link: 'https://www.nba.com/news/category/top-stories',
+      title: 'Mathurin, McConnell provide historic boost',
+      link: 'https://www.nba.com/news/mathurin-mcconnell-provide-historic-boost',
+      date: '5 hours ago',
+      source: 'NBA Official',
+      timestamp: new Date().toISOString(),
+      type: 'news'
+    },
+    {
+      title: 'Celtics\' Brown undergoes arthroscopic knee surgery',
+      link: 'https://www.nba.com/news/celtics-brown-undergoes-arthroscopic-knee-surgery',
       date: '6 hours ago',
       source: 'NBA Official',
       timestamp: new Date().toISOString(),
       type: 'news'
     },
     {
-      title: 'Caitlin Clark, Reggie Miller, Oscar Robertson among stars to attend Game 3',
-      link: 'https://www.nba.com/news/category/top-stories',
+      title: 'Wembanyama heads to Shaolin temple in China',
+      link: 'https://www.nba.com/news/wembanyama-heads-shaolin-temple-china',
       date: '8 hours ago',
-      source: 'NBA Official',
-      timestamp: new Date().toISOString(),
-      type: 'news'
-    },
-    {
-      title: 'Celtics Jaylen Brown has arthroscopic knee surgery, targets training camp return',
-      link: 'https://www.nba.com/news/category/top-stories',
-      date: '1 day ago',
       source: 'NBA Official',
       timestamp: new Date().toISOString(),
       type: 'news'

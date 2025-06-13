@@ -39,6 +39,26 @@ class NBAScraper {
     try {
       console.log('正在获取NBA新闻...');
       
+      // 并行获取ESPN和NBA官网新闻
+      const [espnNews, nbaNews] = await Promise.all([
+        this.fetchESPNNews(),
+        this.fetchNBAOfficialNews()
+      ]);
+      
+      // 合并新闻数据，ESPN在前，NBA官网在后
+      const allNews = [...espnNews, ...nbaNews];
+      console.log(`成功获取 ${allNews.length} 条NBA新闻`);
+      return allNews.slice(0, 12); // 最多返回12条新闻
+      
+    } catch (error) {
+      console.error('获取NBA新闻失败:', error.message);
+      return [];
+    }
+  }
+
+  // 获取ESPN新闻
+  async fetchESPNNews() {
+    try {
       const response = await axios.get(this.dataSources.news[1].url, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
@@ -48,7 +68,7 @@ class NBAScraper {
       });
 
       if (response.data && response.data.articles) {
-        const articles = response.data.articles.slice(0, 10).map(article => ({
+        const articles = response.data.articles.slice(0, 6).map(article => ({
           title: article.headline || article.title,
           link: article.links?.web?.href || '#',
           date: this.formatDate(article.published),
@@ -57,13 +77,102 @@ class NBAScraper {
           type: 'news'
         }));
         
-        console.log(`成功获取 ${articles.length} 条NBA新闻`);
         return articles;
       }
       
       return [];
     } catch (error) {
-      console.error('获取NBA新闻失败:', error.message);
+      console.error('获取ESPN NBA新闻失败:', error.message);
+      return [];
+    }
+  }
+
+  // 获取NBA官网新闻
+  async fetchNBAOfficialNews() {
+    try {
+      const response = await axios.get('https://www.nba.com/news/category/top-stories', {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.5',
+          'Accept-Encoding': 'gzip, deflate',
+          'Connection': 'keep-alive',
+          'Upgrade-Insecure-Requests': '1'
+        },
+        timeout: 15000
+      });
+
+      const $ = cheerio.load(response.data);
+      const articles = [];
+      
+      // 抓取新闻标题和链接
+      $('article, .story-card, .ContentCard, .news-item, h3 a, h2 a').each((index, element) => {
+        if (index >= 6) return false; // 最多获取6条新闻
+        
+        const $el = $(element);
+        let title, link;
+        
+        if ($el.is('article')) {
+          // 如果是article元素
+          title = $el.find('h1, h2, h3, h4, .title, .headline').first().text().trim();
+          link = $el.find('a').first().attr('href');
+        } else if ($el.is('a')) {
+          // 如果是链接元素
+          title = $el.text().trim();
+          link = $el.attr('href');
+        } else {
+          // 其他情况
+          title = $el.find('h1, h2, h3, h4, .title, .headline, a').first().text().trim();
+          link = $el.find('a').first().attr('href') || $el.closest('a').attr('href');
+        }
+        
+        if (title && title.length > 10) {
+          // 确保链接是完整的URL
+          if (link && !link.startsWith('http')) {
+            link = link.startsWith('/') ? `https://www.nba.com${link}` : `https://www.nba.com/${link}`;
+          }
+          
+          articles.push({
+            title: title,
+            link: link || 'https://www.nba.com/news/category/top-stories',
+            date: this.formatDate(new Date().toISOString()),
+            source: 'NBA Official',
+            timestamp: new Date().toISOString(),
+            type: 'news'
+          });
+        }
+      });
+      
+      // 如果上面的选择器没有找到足够的新闻，尝试更通用的选择器
+      if (articles.length < 3) {
+        $('h1, h2, h3, h4').each((index, element) => {
+          if (articles.length >= 6) return false;
+          
+          const $el = $(element);
+          const title = $el.text().trim();
+          const link = $el.find('a').attr('href') || $el.closest('a').attr('href');
+          
+          if (title && title.length > 15 && title.length < 150) {
+            let fullLink = link;
+            if (link && !link.startsWith('http')) {
+              fullLink = link.startsWith('/') ? `https://www.nba.com${link}` : `https://www.nba.com/${link}`;
+            }
+            
+            articles.push({
+              title: title,
+              link: fullLink || 'https://www.nba.com/news/category/top-stories',
+              date: this.formatDate(new Date().toISOString()),
+              source: 'NBA Official',
+              timestamp: new Date().toISOString(),
+              type: 'news'
+            });
+          }
+        });
+      }
+      
+      return articles;
+    } catch (error) {
+      console.error('获取NBA官网新闻失败:', error.message);
       return [];
     }
   }
